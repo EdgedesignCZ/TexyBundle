@@ -21,7 +21,7 @@ First-level key determines name of filter.
 Then, there are 3 types of settings. 
 - 'allowed' is used for setting enabled modules via calls like `$texy->allowed[$moduleName] = true/false`
 - 'module' is for passing settings to module, it will be translated in call similar to this: `$texy->$moduleName.'Module'->$parameter = $settings`
-- 'variables' is the most powerful settings, it practically enables you to do everything. It is translated into following call: `$texy->$variableName = $variableValue`
+- 'variables' is the most powerful settings, it enables you to do almost everything. It is translated into following call: `$texy->$variableName = $variableValue`
 
 In values, you can use asterisk sign (*), which will be translated to constant Texy::ALL and dash sign (-), which translates to Texy::NONE.
 
@@ -35,8 +35,25 @@ edge_texy_bundle.filters:
 
 In this case, settings allowed, module and variables will be passed to this extended class too.
 
+## Usage
+
+There are two ways how to use this bundle.
+
+You can get TexyProcessor service named `edge_texy_bundle.class.processor` and call method `$processor->process($filterId, $text)`.
+
+This will process your `$text` via filter set in config with id `$filterId`.
+
+Second way is to use registered Twig macro '`texy_process`'.
+
+```twig
+{{ variableThatINeedToPassThroughTexy|texy_process(filterId)}}
+```
+
+This way, given variable is passed through filter named `filterId`. If no filter name given, macro tries to use filter called "default".
+
+
 ## Tests
 
-Run tests with PHPUnit from directory "Tests"
+Run tests with PHPUnit from root directory.
 
 No reasonable tests are done though. My bad..
