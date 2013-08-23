@@ -32,7 +32,14 @@ class TexyConfigurator implements IConfigurator
      */
     public function configure(array $parameters)
     {
-        $texy = new $this->texyClassName;
+        if(array_key_exists('class', $parameters)){
+            $texy = new $parameters['class'];
+            if(!$texy instanceof Texy){
+                throw new \InvalidArgumentException('Specified class ' . $parameters['class'] . ' is not instance of Texy nor it\'s descendant.');
+            }
+        } else {
+            $texy = new $this->texyClassName;
+        }
 
         foreach($parameters as $type => $options){
             if($type === 'allowed'){
