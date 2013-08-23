@@ -9,6 +9,11 @@
     bootstrap                   = "./Tests/bootstrap.php"
 >
 
+    <php>
+        <server name="SYMFONY" value="../../../../symfony/symfony/src" />
+        <server name="TWIG" value="../../../../twig/twig/lib" />
+    </php>
+
     <testsuites>
         <testsuite name="All tests">
             <directory>tests</directory>
