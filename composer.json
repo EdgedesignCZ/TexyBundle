@@ -1,0 +1,27 @@
+{
+    "name": "edgedesign/texy-bundle",
+    "type": "library",
+    "description": "Edgedesign Texy! bundle",
+    "keywords": ["texy"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marek Makovec",
+            "email": "marek.makovec@edgedesign.cz"
+        }
+    ],
+    "repositories": [
+        
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "texy/texy": "dev-release-2.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Edge\\TexyBundle": ""
+        }
+    },
+    "minimum-stability": "stable",
+    "target-dir": "Edge/TexyBundle"
+}

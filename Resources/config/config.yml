@@ -1,0 +1,65 @@
+parameters:
+    edge_texy_bundle.class.configurator: "Edge\\TexyBundle\\Configurator\\TexyConfigurator"
+    edge_texy_bundle.class.manager: "Edge\\TexyBundle\\Manager\\TexyManager"
+    edge_texy_bundle.class.processor: "Edge\\TexyBundle\\Processor\\TexyProcessor"
+    edge_texy_bundle.class.texy: "Texy"
+    edge_texy_bundle.class.twig_extension: "Edge\\TexyBundle\\Twig\\TexyExtension"
+
+    edge_texy_bundle.filters:
+        demo:
+            allowed:
+                # equivalent to
+                # $texy->allowed['block/code'] = FALSE;
+                "block/code": false
+            # equivalent to
+            # $texy->allowedTags = array('a' => array('href', 'target'), 'em' => Texy::NONE, 'img' => Texy::ALL)
+            variables:
+                allowedTags:
+                    a:
+                       - href
+                       - target
+                    em: '-'
+                    img: '*'
+            # equivalent to
+            # $texy->{name}Module->variable = value
+            modules:
+              link:
+                  forceNoFollow: true;
+
+
+        purifier:
+            allowedTags:
+                a:
+                  - href
+                  - lang
+                  - target
+                em: '-'
+                img: '*'
+                strong: '-'
+
+        menu_decorator:
+          allowedTags:
+            em: '-'
+            strong: '-'
+
+services:
+    edge_texy_bundle.configurator:
+        class: '%edge_texy_bundle.class.configurator%'
+        arguments:
+           - '%edge_texy_bundle.class.texy%'
+
+    edge_texy_bundle.manager:
+        class: '%edge_texy_bundle.class.manager%'
+        arguments:
+            - '@edge_texy_bundle.configurator'
+            - '%edge_texy_bundle.filters%'
+    edge_texy_bundle.processor:
+        class: '%edge_texy_bundle.class.processor%'
+        arguments:
+            - '@edge_texy_bundle.manager'
+    edge_texy_bundle.twig_extension:
+        class: "%edge_texy_bundle.class.twig_extension%"
+        arguments:
+            - '@edge_texy_bundle.processor'
+        tags:
+            - { name: twig.extension }
