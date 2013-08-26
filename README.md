@@ -53,7 +53,50 @@ Second way is to use registered Twig macro '`texy_process`'.
 
 This way, given variable is passed through filter named `filterId`. If no filter name given, macro tries to use filter called "default".
 
+### Settings examples
+Settings example for sanitizing html output (put this into your config.yml):
+```yaml
+edge_texy:
+  attribute_settings:
+      html5_attributes: &html5_attributes
+          - itemid
+          - itemprop
+          - itemref
+          - itemscope
+          - itemtype
+      html_identifiers: &html_identifiers
+          - class
+          - id
+      global_attributes: &global_attributes
+          << : [*html5_attributes, *html_identifiers]
+  filters:
+      sanitize:
+          variables:
+              allowedTags:
+                  a: [itemid, itemprop, itemref, itemscope, itemtype, class, id, href, title]
+                  acronym: [title]
+                  b: *global_attributes
+                  br: *global_attributes
+                  cite: *global_attributes
+                  code: *global_attributes
+                  div: *global_attributes
+                  em: *global_attributes
+                  img: [itemid, itemprop, itemref, itemscope, itemtype, class, id, src, alt]
+                  strong: *global_attributes
+                  sub: *global_attributes
+                  sup: *global_attributes
+                  q: *global_attributes
+                  small: *global_attributes
 
+      strip:
+          allowed:
+              paragraph: false
+          variables:
+              allowedTags: '-'
+```
+
+Now, you can use filter `sanitize` to sanitize your HTML output from user
+and filter `strip` to make user no HTML from user will appear in your code.
 ## Tests
 
 Run tests with PHPUnit from root directory.

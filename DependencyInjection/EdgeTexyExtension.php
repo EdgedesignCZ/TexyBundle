@@ -20,7 +20,6 @@ class EdgeTexyExtension extends Extension
         $config = $this->mergeConfigs($configs);
 
         if(array_key_exists('filters', $config)){
-            ldd($config['filters']['sanitize']);
             $managerDefinition = $container->getDefinition('edge_texy.manager');
             $managerDefinition->addMethodCall('setDefinitions', array($config['filters']));
         }
