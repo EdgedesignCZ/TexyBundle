@@ -21,16 +21,6 @@ class TexyManager implements IManager{
         $this->instances = array();
     }
 
-    /**
-     * Add definition $options about $name filter.
-     *
-     * @param $name
-     * @param Texy $instance
-     */
-    public function addTexyDefinition($name, array $options)
-    {
-        $this->definitions[$name] = $options;
-    }
 
     /**
      * Retrieve Texy instance named $name
@@ -52,7 +42,34 @@ class TexyManager implements IManager{
         }
 
 
-        throw new InstanceNotFoundException('Instance called "'.$name.'" does not exists.');
+        throw new InstanceNotFoundException('Filter called "'.$name.'" does not exists. Known filter names are: ' .
+                implode(',', array_keys($this->definitions))
+            );
     }
 
+    /**
+     * Overrides all definitions given from constructor with newly defined definitions.
+     *
+     * @param array $definitions
+     * @return void
+     */
+    public function setDefinitions(array $definitions)
+    {
+        $this->definitions = $definitions;
+        $this->instances = array();
+    }
+
+    /**
+     * Adds new $definition called $name.
+     *
+     * If this definition existed, it is overriden.
+     *
+     * @param $name
+     * @param array $definition
+     */
+    public function setDefinition($name, array $definition)
+    {
+        $this->definitions[$name] = $definition;
+        unset($this->instances[$name]);
+    }
 }

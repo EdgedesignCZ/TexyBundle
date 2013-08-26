@@ -16,11 +16,24 @@ class EdgeTexyExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('config.yml');
-/*
-        $configurator = $container->getDefinition('edge_texy_bundle.class.configurator');
-        $configurator->addArgument($container->getParameter('edge_texy_bundle.class.texy'));
-        $manager = $container->getDefinition('edge_texy_bundle.class.manager');
-        $manager->addArgument($container->getParameter('texy_instances'));
-*/
+
+        $config = $this->mergeConfigs($configs);
+
+        if(array_key_exists('filters', $config)){
+            ldd($config['filters']['sanitize']);
+            $managerDefinition = $container->getDefinition('edge_texy.manager');
+            $managerDefinition->addMethodCall('setDefinitions', array($config['filters']));
+        }
+    }
+
+    public function mergeConfigs(array $configs)
+    {
+        $config = array();
+
+        foreach ($configs as $cnf) {
+            $config = array_merge($config, $cnf);
+        }
+
+        return $config;
     }
 }
