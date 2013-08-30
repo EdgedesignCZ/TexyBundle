@@ -71,6 +71,7 @@ edge_texy:
           << : [*html5_attributes, *html_identifiers]
   filters:
       sanitize:
+          outputMode: 4   # Set outputMode to HTML5 - https://github.com/jiripudil/texy/blob/master/Texy/Texy.php#L122
           variables:
               allowedTags:
                   a: [itemid, itemprop, itemref, itemscope, itemtype, class, id, href, title]
