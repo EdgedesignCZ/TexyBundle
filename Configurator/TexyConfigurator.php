@@ -41,7 +41,7 @@ class TexyConfigurator implements IConfigurator
             $texy = new $this->texyClassName;
         }
 
-        if (array_key_exists('outputMode'), $parameters) {
+        if (array_key_exists('outputMode', $parameters)) {
             $texy->setOutputMode($parameters['outputMode']);
         }
 
