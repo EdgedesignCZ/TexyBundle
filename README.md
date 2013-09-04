@@ -44,14 +44,16 @@ You can get TexyProcessor service named `edge_texy_bundle.class.processor` and c
 
 This will process your `$text` via filter set in config with id `$filterId`.
 
-### Twig macro
-Second way is to use registered Twig macro '`texy_process`'.
+### Twig macros
+Second way is to use registered Twig macros '`texy_process`' and '`texy_process_line`'.
 
 ```twig
 {{ variableThatINeedToPassThroughTexy|texy_process(filterId)}}
 ```
 
 This way, given variable is passed through filter named `filterId`. If no filter name given, macro tries to use filter called "default".
+
+Difference between macros is that when using texy_process_line, Texy will not wrap given code in block tags like <p>.
 
 ### Settings examples
 Settings example for sanitizing html output (put this into your config.yml):
