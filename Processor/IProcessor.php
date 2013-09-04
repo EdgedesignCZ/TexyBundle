@@ -10,6 +10,10 @@ namespace Edge\TexyBundle\Processor;
 interface IProcessor
 {
 
+    const SINGLE_LINE = true;
+
+    const MULTI_LINE  = false;
+
     /**
      * Process given $text via instance of texy named $instanceId
      *
@@ -17,5 +21,5 @@ interface IProcessor
      * @param string $text text to process
      * @return string
      */
-    public function process($instanceId, $text);
+    public function process($instanceId, $text, $mode);
 }

@@ -27,9 +27,9 @@ class TexyProcessor implements IProcessor
      * @param $text
      * @return string
      */
-    public function process($instanceId, $text)
+    public function process($instanceId, $text, $mode)
     {
-        return $this->manager->getTexy($instanceId)->process($text);
+        return $this->manager->getTexy($instanceId)->process($text, $mode);
     }
 
 }
