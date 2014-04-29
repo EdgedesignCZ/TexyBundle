@@ -15,7 +15,7 @@ class TexyProcessor implements IProcessor
     private $manager;
 
 
-    function __construct(IManager $manager)
+    public function __construct(IManager $manager)
     {
         $this->manager = $manager;
     }

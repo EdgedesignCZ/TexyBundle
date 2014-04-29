@@ -25,12 +25,66 @@ class EdgeTexyExtension extends Extension
         }
     }
 
+    /**
+     * Method for merging several configuration arrays.
+     * It should merge several arrays of this structure A into one structure B
+     *
+     * Structure A examples:
+     * <code>
+     *     firstConfig:
+     *        attributeSettings:
+     *            bar: baz
+     *            xizzy: zixxy
+     *         filters:
+     *             someFilter:
+     *                 settings:
+     *                     b: [span, id]
+     *                     p: [class, id]
+     *
+     *     secondConfig:
+     *        attributeSettings:
+     *            asd: dsa
+     *            zixxy: xizzy
+     *         filters:
+     *             someOtherFilter:
+     *                 settings:
+     *                     b: [span, id]
+     *                     p: [class, id]
+     * </code>
+     *
+     * Result structure example:
+     * <code>
+     *     config:
+     *        attributeSettings:
+     *            asd: dsa
+     *            bar: baz
+     *            xizzy: zixxy
+     *            zixxy: xizzy
+     *
+     *         filters:
+     *             someFilter:
+     *                 settings:
+     *                     b: [span, id]
+     *                     p: [class, id]
+     *
+     *             someOtherFilter:
+     *                 settings:
+     *                     b: [span, id]
+     *                     p: [class, id]
+     * </code>
+     *
+     * @param array $configs
+     *
+     * @return array
+     */
     public function mergeConfigs(array $configs)
     {
         $config = array();
-
         foreach ($configs as $cnf) {
-            $config = array_merge($config, $cnf);
+            foreach ($cnf as $sectionName => $parameters) {
+                $currentValues = (isset($config[$sectionName])) ? $config[$sectionName] : array();
+                $config[$sectionName] = array_merge($currentValues, $parameters);
+            }
         }
 
         return $config;
