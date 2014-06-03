@@ -18,7 +18,8 @@ just implement correct interfaces please.
 In section `edge_texy_bundle.filters` you can set-up your filters.
 First-level key determines name of filter. 
 
-Then, there are 3 types of settings. 
+Then, there are 3 types of settings.
+
 - 'allowed' is used for setting enabled modules via calls like `$texy->allowed[$moduleName] = true/false`
 - 'module' is for passing settings to module, it will be translated in call similar to this: `$texy->$moduleName.'Module'->$parameter = $settings`
 - 'variables' is the most powerful settings, it enables you to do almost everything. It is translated into following call: `$texy->$variableName = $variableValue`
@@ -27,10 +28,10 @@ In values, you can use asterisk sign (*), which will be translated to constant T
 
 If this settings is not enough, you can extend Texy, set it up in constructor and set name of your instance as `class` attribute.
 
-```yaml
+```
 edge_texy_bundle.filters:
-        filter_from_my_class:
-            class: MyClassExtendingTexy    			
+  filter_from_my_class:
+    class: MyClassExtendingTexy    			
 ```
 
 In this case, settings allowed, module and variables will be passed to this extended class too.
@@ -57,6 +58,7 @@ Difference between macros is that when using texy_process_line, Texy will not wr
 
 ### Settings examples
 Settings example for sanitizing html output (put this into your config.yml):
+
 ```yaml
 edge_texy:
   attribute_settings:
@@ -73,6 +75,11 @@ edge_texy:
           << : [*html5_attributes, *html_identifiers]
   filters:
       sanitize:
+          allowed:
+            link/url: false
+          modules:
+            link:
+              shorten: false
           outputMode: 4   # Set outputMode to HTML5 - https://github.com/jiripudil/texy/blob/master/Texy/Texy.php#L122
           variables:
               allowedTags:
