@@ -52,6 +52,19 @@ Second way is to use registered Twig macros '`texy_process`' and '`texy_process_
 {{ variableThatINeedToPassThroughTexy|texy_process(filterId)}}
 ```
 
+Alternative Twig syntax useful when you don't have the content stored in variable, but in template itself:
+
+```twig
+{% filter texy_process %}
+- Lorem
+- Ipsum
+
+Foo **Bar** Baz.
+{% endfilter %}
+```
+(Thank you, [OndraM](https://github.com/OndraM), for [pointing that out](https://github.com/EdgedesignCZ/TexyBundle/issues/1#issuecomment-53973044).)
+
+
 This way, given variable is passed through filter named `filterId`. If no filter name given, macro tries to use filter called "default".
 
 Difference between macros is that when using texy_process_line, Texy will not wrap given code in block tags like <p>.
