@@ -76,14 +76,14 @@ Settings example for sanitizing html output (put this into your config.yml):
 edge_texy:
   attribute_settings:
       html5_attributes: &html5_attributes
-          - itemid
-          - itemprop
-          - itemref
-          - itemscope
-          - itemtype
+          100: itemid
+          101: itemprop
+          102: itemref
+          103: itemscope
+          104: itemtype
       html_identifiers: &html_identifiers
-          - class
-          - id
+          200: class
+          201: id
       global_attributes: &global_attributes
           << : [*html5_attributes, *html_identifiers]
   filters:
@@ -96,7 +96,10 @@ edge_texy:
           outputMode: 4   # Set outputMode to HTML5 - https://github.com/jiripudil/texy/blob/master/Texy/Texy.php#L122
           variables:
               allowedTags:
-                  a: [itemid, itemprop, itemref, itemscope, itemtype, class, id, href, title]
+                  a:
+                      << : *global_attributes
+                      0: href
+                      1: title
                   acronym: [title]
                   b: *global_attributes
                   br: *global_attributes
@@ -104,7 +107,10 @@ edge_texy:
                   code: *global_attributes
                   div: *global_attributes
                   em: *global_attributes
-                  img: [itemid, itemprop, itemref, itemscope, itemtype, class, id, src, alt]
+                  img:
+                      << : *global_attributes
+                      0: src
+                      1: alt
                   strong: *global_attributes
                   sub: *global_attributes
                   sup: *global_attributes
