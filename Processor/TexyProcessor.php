@@ -32,4 +32,13 @@ class TexyProcessor implements IProcessor
         return $this->manager->getTexy($instanceId)->process($text, $mode);
     }
 
+    public function singleLineText($filter, $text)
+    {
+        return $this->process($filter, $text, IProcessor::MULTI_LINE);
+    }
+
+    public function multiLineText($filter, $text)
+    {
+        return $this->process($filter, $text, IProcessor::SINGLE_LINE);
+    }
 }
