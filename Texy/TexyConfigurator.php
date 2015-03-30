@@ -6,9 +6,7 @@ use \Texy;
 
 class TexyConfigurator
 {
-    /**
-     * @var string stores name of Texy class
-     */
+    /** @var string stores name of Texy class */
     private $texyClassName;
 
     function __construct($texyClassName)
@@ -18,7 +16,6 @@ class TexyConfigurator
 
     /**
      * Function, that receives data from user config and returns fully configured Texy
-     *
      * @param array $parameters
      * @return Texy
      */
