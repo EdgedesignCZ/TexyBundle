@@ -1,32 +1,25 @@
 <?php
 
-
 namespace Edge\TexyBundle\Twig;
 
-use Edge\TexyBundle\Processor\IProcessor;
 use Twig_Extension;
 use Twig_SimpleFilter;
+use Edge\TexyBundle\Processor\TexyProcessor;
 
-/**
- * @author: Marek Makovec <marek.makovec@edgedesign.cz>
- */
 class TexyExtension extends Twig_Extension
 {
-    /**
-     * @var IProcessor
-     */
     private $processor;
 
-    public function __construct(IProcessor $processor)
+    public function __construct(TexyProcessor $p)
     {
-        $this->processor = $processor;
+        $this->processor = $p;
     }
 
     public function getFilters()
     {
         return array(
-            new Twig_SimpleFilter('texy_process', array($this, 'processTexy'),  array('is_safe' => array('html'))),
-            new Twig_SimpleFilter('texy_process_line', array($this, 'processLineTexy'),  array('is_safe' => array('html'))),
+            new Twig_SimpleFilter('texy_process', array($this->processor, 'singleLineText'),  array('is_safe' => array('html'))),
+            new Twig_SimpleFilter('texy_process_line', array($this->processor, 'multiLineText'),  array('is_safe' => array('html'))),
         );
     }
 
@@ -34,29 +27,4 @@ class TexyExtension extends Twig_Extension
     {
         return 'edge_texy_filter';
     }
-
-    /**
-     * Process given $text by text processor with given $id
-     *
-     * @param string $text
-     * @param string $id
-     * @return string
-     */
-    public function processTexy($text, $id='default')
-    {
-        return $this->processor->process($id, $text, IProcessor::MULTI_LINE);
-    }
-
-    /**
-     * Process given $text by text processor with given $id
-     *
-     * @param string $text
-     * @param string $id
-     * @return string
-     */
-    public function processLineTexy($text, $id='default')
-    {
-        return $this->processor->process($id, $text, IProcessor::SINGLE_LINE);
-    }
-
 }
