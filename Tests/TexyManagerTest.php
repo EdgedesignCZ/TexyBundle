@@ -1,6 +1,6 @@
 <?php
 
-namespace Edge\TexyBundle\Manager;
+namespace Edge\TexyBundle\Texy;
 
 use Mockery as m;
 
@@ -10,7 +10,7 @@ class TexyManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->configurator = m::mock('Edge\TexyBundle\Configurator\TexyConfigurator');
+        $this->configurator = m::mock('Edge\TexyBundle\Texy\TexyConfigurator');
     }
 
     /** @expectedException \InvalidArgumentException */

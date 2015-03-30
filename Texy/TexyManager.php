@@ -1,8 +1,7 @@
 <?php
 
-namespace Edge\TexyBundle\Manager;
+namespace Edge\TexyBundle\Texy;
 
-use Edge\TexyBundle\Configurator\TexyConfigurator;
 use InvalidArgumentException;
 
 class TexyManager

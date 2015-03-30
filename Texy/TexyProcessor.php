@@ -1,8 +1,6 @@
 <?php
 
-namespace Edge\TexyBundle\Processor;
-
-use Edge\TexyBundle\Manager\TexyManager;
+namespace Edge\TexyBundle\Texy;
 
 class TexyProcessor
 {

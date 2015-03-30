@@ -1,6 +1,6 @@
 <?php
 
-namespace Edge\TexyBundle\Processor;
+namespace Edge\TexyBundle\Texy;
 
 use Mockery as m;
 
@@ -12,7 +12,7 @@ class TexyProcessorTest extends \PHPUnit_Framework_TestCase
         $texy = m::mock('Texy');
         $texy->shouldReceive('process')->once()->with(m::any(), $expectedTexyMode);
 
-        $manager = m::mock('Edge\TexyBundle\Manager\TexyManager');
+        $manager = m::mock('Edge\TexyBundle\Texy\TexyManager');
         $manager->shouldReceive('getTexy')->once()->andReturn($texy);
 
         $processor = new TexyProcessor($manager);

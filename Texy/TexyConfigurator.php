@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Edge\TexyBundle\Configurator;
+namespace Edge\TexyBundle\Texy;
 
 use \Texy;
 
