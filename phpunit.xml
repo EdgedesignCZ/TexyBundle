@@ -6,13 +6,8 @@
     convertErrorsToExceptions   = "true"
     convertNoticesToExceptions  = "true"
     convertWarningsToExceptions = "true"
-    bootstrap                   = "./Tests/bootstrap.php"
+    bootstrap                   = "../../../../autoload.php"
 >
-
-    <php>
-        <server name="SYMFONY" value="../../../../symfony/symfony/src" />
-        <server name="TWIG" value="../../../../twig/twig/lib" />
-    </php>
 
     <testsuites>
         <testsuite name="All tests">
