@@ -2,13 +2,35 @@
 
 namespace Edge\TexyBundle\DependencyInjection;
 
-class EdgeTexyBundleConfiguratorTest extends \PHPUnit_Framework_TestCase
+use Mockery as m;
+
+class EdgeTexyBundleExtensionTest extends \PHPUnit_Framework_TestCase
 {
-    /** @dataProvider provideConfigs */
-    public function testShouldNotDeepMergeOptions($configs, $expectedConfig)
+    private $extension;
+
+    public function setUp()
     {
-        $extension = new EdgeTexyExtension();
-        $mergedConfigs = $extension->mergeConfigs($configs);
+        $this->extension = new EdgeTexyExtension();
+    }
+
+    public function testShouldLoadTexyManager()
+    {
+        $manager = m::mock('Edge\TexyBundle\Manager\TexyManager');
+        $manager->shouldReceive('addMethodCall')->once()->with('setDefinitions', array('irrelevant filter'));
+        $container = m::mock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container->shouldReceive('getDefinition')->once()->with('edge_texy.manager')->andReturn($manager);
+
+        $config = array(
+            'filters' => 'irrelevant filter'
+        );
+        $this->extension->loadManager($config, $container);
+        m::close();
+    }
+
+    /** @dataProvider provideConfigs */
+    public function testShouldMergeConfigurations($configs, $expectedConfig)
+    {
+        $mergedConfigs = $this->extension->mergeConfigs($configs);
         $this->assertEquals($mergedConfigs, $expectedConfig);
     }
 
