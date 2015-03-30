@@ -3,26 +3,18 @@
 namespace Edge\TexyBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Texy;
 
 class EdgeTexyExtension extends Extension
 {
-
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('config.yml');
-
         $config = $this->mergeConfigs($configs);
-
-        if(array_key_exists('filters', $config)){
-            $managerDefinition = $container->getDefinition('edge_texy.manager');
-            $managerDefinition->addMethodCall('setDefinitions', array($config['filters']));
-        }
+        $this->updateParameters($config, $container);
     }
 
     /**
@@ -88,5 +80,15 @@ class EdgeTexyExtension extends Extension
         }
 
         return $config;
+    }
+
+    public function updateParameters(array $config, ContainerBuilder $container)
+    {
+        $parameters = array('filters', 'custom_attributes');
+        foreach ($parameters as $param) {
+            if (array_key_exists($param, $config)) {
+                $container->setParameter("edge_texy.{$param}", $config[$param]);
+            }
+        }
     }
 }
