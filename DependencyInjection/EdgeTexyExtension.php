@@ -14,7 +14,7 @@ class EdgeTexyExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('config.yml');
         $config = $this->mergeConfigs($configs);
-        $this->loadManager($config, $container);
+        $this->updateParameters($config, $container);
     }
 
     /**
@@ -82,9 +82,13 @@ class EdgeTexyExtension extends Extension
         return $config;
     }
 
-    public function loadManager(array $config, ContainerBuilder $container)
+    public function updateParameters(array $config, ContainerBuilder $container)
     {
-        $container->setParameter('edge_texy.filters', $config['filters']);
-        $container->setParameter('edge_texy.custom_attributes', $config['custom_attributes']);
+        $parameters = array('filters', 'custom_attributes');
+        foreach ($parameters as $param) {
+            if (array_key_exists($param, $config)) {
+                $container->setParameter("edge_texy.{$param}", $config[$param]);
+            }
+        }
     }
 }

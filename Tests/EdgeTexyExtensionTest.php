@@ -7,23 +7,34 @@ use Mockery as m;
 class EdgeTexyExtensionTest extends \PHPUnit_Framework_TestCase
 {
     private $extension;
+    private $container;
 
     public function setUp()
     {
         $this->extension = new EdgeTexyExtension();
+        $this->container = m::mock('Symfony\Component\DependencyInjection\ContainerBuilder');
     }
 
-    public function testShouldLoadTexyManager()
+    public function testShouldReloadContainerParameters()
     {
-        $container = m::mock('Symfony\Component\DependencyInjection\ContainerBuilder');
-        $container->shouldReceive('setParameter')->once()->with('edge_texy.filters', 'irrelevant filter');
-        $container->shouldReceive('setParameter')->once()->with('edge_texy.custom_attributes', 'irrelevant attributes');
-
         $config = array(
             'filters' => 'irrelevant filter',
             'custom_attributes' => 'irrelevant attributes'
         );
-        $this->extension->loadManager($config, $container);
+        $this->container->shouldReceive('setParameter')->once()->with('edge_texy.filters', 'irrelevant filter');
+        $this->container->shouldReceive('setParameter')->once()->with('edge_texy.custom_attributes', 'irrelevant attributes');
+        $this->updateParameters($config);
+    }
+
+    public function testConfigIsOptional()
+    {
+        $this->container->shouldReceive('setParameter')->never();
+        $this->updateParameters(array());
+    }
+
+    private function updateParameters($config)
+    {
+        $this->extension->updateParameters($config, $this->container);
         m::close();
     }
 
