@@ -2,22 +2,27 @@
 
 namespace Edge\TexyBundle\Manager;
 
-use Edge\TexyBundle\Configurator\IConfigurator;
+use Edge\TexyBundle\Configurator\TexyConfigurator;
 use InvalidArgumentException;
 
-class TexyManager implements IManager
+class TexyManager
 {
     private $initializedTexy;
     private $configurator;
     private $definitions;
 
-    public function __construct(IConfigurator $configurator, array $definitions)
+    public function __construct(TexyConfigurator $c, array $definitions)
     {
-        $this->configurator = $configurator;
+        $this->configurator = $c;
         $this->definitions = $definitions;
         $this->initializedTexy = array();
     }
 
+    /**
+     * @param string $name
+     * @return \Texy Returns Texy instance named $name
+     * @throws \InvalidArgumentException
+     */
     public function getTexy($name = 'default')
     {
         if (array_key_exists($name, $this->definitions)){

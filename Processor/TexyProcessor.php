@@ -1,16 +1,16 @@
 <?php
 
-
 namespace Edge\TexyBundle\Processor;
-use Edge\TexyBundle\Manager\IManager;
+
+use Edge\TexyBundle\Manager\TexyManager;
 
 class TexyProcessor
 {
     private $manager;
 
-    public function __construct(IManager $manager)
+    public function __construct(TexyManager $m)
     {
-        $this->manager = $manager;
+        $this->manager = $m;
     }
 
     public function singleLineText($text, $filter = 'default')

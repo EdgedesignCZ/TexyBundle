@@ -2,27 +2,20 @@
 
 
 namespace Edge\TexyBundle\Configurator;
+
 use \Texy;
 
-
-/**
- * @author: Marek Makovec <marek.makovec@edgedesign.cz>
- */
-class TexyConfigurator implements IConfigurator
+class TexyConfigurator
 {
     /**
      * @var string stores name of Texy class
      */
     private $texyClassName;
 
-    /**
-     * @param string $texy_class_name name of class of Texy
-     */
     function __construct($texyClassName)
     {
         $this->texyClassName = $texyClassName;
     }
-
 
     /**
      * Function, that receives data from user config and returns fully configured Texy
@@ -137,5 +130,4 @@ class TexyConfigurator implements IConfigurator
 
         return $value;
     }
-
 }
