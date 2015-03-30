@@ -4,41 +4,27 @@
 namespace Edge\TexyBundle\Processor;
 use Edge\TexyBundle\Manager\IManager;
 
-/**
- * @author: Marek Makovec <marek.makovec@edgedesign.cz>
- */
-class TexyProcessor implements IProcessor
+class TexyProcessor
 {
-    /**
-     * @var IManager
-     */
     private $manager;
-
 
     public function __construct(IManager $manager)
     {
         $this->manager = $manager;
     }
 
-    /**
-     * Process given $text via instance of texy named $instanceId
-     *
-     * @param $instanceId
-     * @param $text
-     * @return string
-     */
-    public function process($instanceId, $text, $mode)
+    public function singleLineText($text, $filter = 'default')
     {
-        return $this->manager->getTexy($instanceId)->process($text, $mode);
+        return $this->process($text, $filter, false);
     }
 
-    public function singleLineText($filter, $text)
+    public function multiLineText($text, $filter = 'default')
     {
-        return $this->process($filter, $text, IProcessor::MULTI_LINE);
+        return $this->process($text, $filter, true);
     }
 
-    public function multiLineText($filter, $text)
+    private function process($text, $filter, $mode)
     {
-        return $this->process($filter, $text, IProcessor::SINGLE_LINE);
+        return $this->manager->getTexy($filter)->process($text, $mode);
     }
 }

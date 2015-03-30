@@ -16,7 +16,7 @@ class TexyProcessorTest extends \PHPUnit_Framework_TestCase
         $manager->shouldReceive('getTexy')->once()->andReturn($texy);
 
         $processor = new TexyProcessor($manager);
-        $processor->$processMethod('irrelevant filter', 'irrelevant text');
+        $processor->$processMethod('irrelevant text');
         m::close();
     }
 
