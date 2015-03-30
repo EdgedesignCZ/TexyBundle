@@ -3,7 +3,7 @@
 namespace Edge\TexyBundle\Manager;
 
 use Edge\TexyBundle\Configurator\IConfigurator;
-use Edge\TexyBundle\Exceptions\InstanceNotFoundException;
+use InvalidArgumentException;
 use Texy;
 
 class TexyManager implements IManager{
@@ -40,10 +40,16 @@ class TexyManager implements IManager{
 
             return $this->instances[$name];
         }
+        $this->unknownFilter($name);
+    }
 
-
-        throw new InstanceNotFoundException('Filter called "'.$name.'" does not exists. Known filter names are: ' .
-                implode(',', array_keys($this->definitions))
-            );
+    private function unknownFilter($name)
+    {
+        $message = sprintf(
+            "Filter called '%s' does not exists. Known filter names are: %s",
+            $name,
+            implode(',', array_keys($this->definitions))
+        );
+        throw new InvalidArgumentException($message);
     }
 }
