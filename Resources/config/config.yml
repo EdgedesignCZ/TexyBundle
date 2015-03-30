@@ -52,13 +52,13 @@ services:
         class: '%edge_texy.class.configurator%'
         arguments:
            - '%edge_texy.class.texy%'
+           - '%edge_texy.custom_attributes%'
 
     edge_texy.manager:
         class: '%edge_texy.class.manager%'
         arguments:
             - '@edge_texy.configurator'
             - '%edge_texy.filters%'
-            - '%edge_texy.custom_attributes%'
 
     edge_texy.processor:
         class: '%edge_texy.class.processor%'

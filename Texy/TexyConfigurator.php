@@ -8,10 +8,14 @@ class TexyConfigurator
 {
     /** @var string stores name of Texy class */
     private $texyClassName;
+    private $customAttributes = array();
 
-    function __construct($texyClassName)
+    function __construct($texyClassName, array $customAttributes)
     {
         $this->texyClassName = $texyClassName;
+        foreach ($customAttributes as $name) {
+            $this->customAttributes[$name] = 1;
+        }
     }
 
     /**
@@ -43,6 +47,7 @@ class TexyConfigurator
                 $this->setVariables($texy, $options);
             }
         }
+        $this->addCustomAttributes($texy);
 
         return $texy;
     }
@@ -125,5 +130,18 @@ class TexyConfigurator
         }
 
         return $value;
+    }
+
+    public function addCustomAttributes(Texy $texy)
+    {
+        foreach (array_keys($texy->dtd) as $element) {
+            if (!is_array($texy->dtd[$element][0])) {
+                continue;
+            }
+            $texy->dtd[$element][0] = array_merge(
+                $texy->dtd[$element][0],
+                $this->customAttributes
+            );
+        }
     }
 }
