@@ -1,9 +1,9 @@
 parameters:
-    edge_texy.class.configurator: "Edge\\TexyBundle\\Configurator\\TexyConfigurator"
-    edge_texy.class.manager: "Edge\\TexyBundle\\Manager\\TexyManager"
-    edge_texy.class.processor: "Edge\\TexyBundle\\Processor\\TexyProcessor"
     edge_texy.class.texy: "Texy"
-    edge_texy.class.twig_extension: "Edge\\TexyBundle\\Twig\\TexyExtension"
+    edge_texy.class.configurator: "Edge\\TexyBundle\\Texy\\TexyConfigurator"
+    edge_texy.class.manager: "Edge\\TexyBundle\\Texy\\TexyManager"
+    edge_texy.class.processor: "Edge\\TexyBundle\\Texy\\TexyProcessor"
+    edge_texy.class.twig_extension: "Edge\\TexyBundle\\Texy\\TexyTwigFilter"
 
     edge_texy.filters:
         demo:
@@ -56,10 +56,12 @@ services:
         arguments:
             - '@edge_texy.configurator'
             - '%edge_texy.filters%'
+
     edge_texy.processor:
         class: '%edge_texy.class.processor%'
         arguments:
             - '@edge_texy.manager'
+
     edge_texy.twig_extension:
         class: "%edge_texy.class.twig_extension%"
         arguments:
