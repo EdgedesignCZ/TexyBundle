@@ -58,18 +58,4 @@ class TexyManager implements IManager{
         $this->definitions = $definitions;
         $this->instances = array();
     }
-
-    /**
-     * Adds new $definition called $name.
-     *
-     * If this definition existed, it is overriden.
-     *
-     * @param $name
-     * @param array $definition
-     */
-    public function setDefinition($name, array $definition)
-    {
-        $this->definitions[$name] = $definition;
-        unset($this->instances[$name]);
-    }
 }

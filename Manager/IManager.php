@@ -10,7 +10,6 @@ use Texy;
  */
 interface IManager
 {
-
     /**
      * Returns Texy instance named $name
      * throws InstanceNotFoundException when there is no such instance
@@ -28,15 +27,4 @@ interface IManager
      * @return void
      */
     public function setDefinitions(array $definitions);
-
-    /**
-     * Adds new $definition called $name.
-     *
-     * If this definition existed, it is overriden.
-     *
-     * @param $name
-     * @param array $definition
-     * @return mixed
-     */
-    public function setDefinition($name, array $definition);
 }
