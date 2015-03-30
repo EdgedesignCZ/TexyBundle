@@ -15,10 +15,8 @@ class EdgeTexyBundleExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldLoadTexyManager()
     {
-        $manager = m::mock('Edge\TexyBundle\Manager\TexyManager');
-        $manager->shouldReceive('addMethodCall')->once()->with('setDefinitions', array('irrelevant filter'));
         $container = m::mock('Symfony\Component\DependencyInjection\ContainerBuilder');
-        $container->shouldReceive('getDefinition')->once()->with('edge_texy.manager')->andReturn($manager);
+        $container->shouldReceive('setParameter')->once()->with('edge_texy.filters', 'irrelevant filter');
 
         $config = array(
             'filters' => 'irrelevant filter'

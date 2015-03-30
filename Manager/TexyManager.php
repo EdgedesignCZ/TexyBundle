@@ -46,16 +46,4 @@ class TexyManager implements IManager{
                 implode(',', array_keys($this->definitions))
             );
     }
-
-    /**
-     * Overrides all definitions given from constructor with newly defined definitions.
-     *
-     * @param array $definitions
-     * @return void
-     */
-    public function setDefinitions(array $definitions)
-    {
-        $this->definitions = $definitions;
-        $this->instances = array();
-    }
 }

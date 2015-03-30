@@ -84,7 +84,6 @@ class EdgeTexyExtension extends Extension
 
     public function loadManager(array $config, ContainerBuilder $container)
     {
-        $managerDefinition = $container->getDefinition('edge_texy.manager');
-        $managerDefinition->addMethodCall('setDefinitions', array($config['filters']));
+        $container->setParameter('edge_texy.filters', $config['filters']);
     }
 }

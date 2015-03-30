@@ -19,12 +19,4 @@ interface IManager
      * @throws \Edge\TexyBundle\Exceptions\InstanceNotFoundException
      */
     public function getTexy($name);
-
-    /**
-     * Overrides all definitions given from constructor with newly defined definitions.
-     *
-     * @param array $definitions
-     * @return void
-     */
-    public function setDefinitions(array $definitions);
 }
