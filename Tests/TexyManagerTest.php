@@ -24,7 +24,7 @@ class TexyManagerTest extends \PHPUnit_Framework_TestCase
     {
         $filter = 'irrelevant filter';
         $manager = new TexyManager($this->configurator, array($filter => array()));
-        
+
         $this->configurator->shouldReceive('configure')->once();
         $manager->getTexy($filter);
         $manager->getTexy($filter);

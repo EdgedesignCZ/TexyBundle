@@ -13,8 +13,8 @@ parameters:
                 # equivalent to
                 # $texy->allowed['block/code'] = FALSE;
                 "block/code": false
-#            class:  # Name of class which will be used to instantiate Texy instance. 
-#               
+#            class:  # Name of class which will be used to instantiate Texy instance.
+#
             # equivalent to
             # $texy->allowedTags = array('a' => array('href', 'target'), 'em' => Texy::NONE, 'img' => Texy::ALL)
             variables:

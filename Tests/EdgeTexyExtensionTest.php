@@ -19,10 +19,10 @@ class EdgeTexyExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'filters' => 'irrelevant filter',
-            'custom_attributes' => 'irrelevant attributes'
+            'custom_attributes' => 'irrelevant attributes',
         );
-        $this->container->shouldReceive('setParameter')->once()->with('edge_texy.filters', 'irrelevant filter');
-        $this->container->shouldReceive('setParameter')->once()->with('edge_texy.custom_attributes', 'irrelevant attributes');
+        $this->shouldLoadParameter('edge_texy.filters', 'irrelevant filter');
+        $this->shouldLoadParameter('edge_texy.custom_attributes', 'irrelevant attributes');
         $this->updateParameters($config);
     }
 
@@ -30,6 +30,11 @@ class EdgeTexyExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->container->shouldReceive('setParameter')->never();
         $this->updateParameters(array());
+    }
+
+    private function shouldLoadParameter($name, $value)
+    {
+        $this->container->shouldReceive('setParameter')->once()->with($name, $value);
     }
 
     private function updateParameters($config)
@@ -54,37 +59,37 @@ class EdgeTexyExtensionTest extends \PHPUnit_Framework_TestCase
                         'default' => array(
                             'Core.HiddenElements' => array('script' => true),
                             'Cache.SerializerPath' => null,
-                        )
+                        ),
                     ),
                     array(
                         'default' => array(
                             'Core.HiddenElements' => array('style' => true),
-                        )
-                    )
+                        ),
+                    ),
                 ),
                 array(
                     'default' => array(
                         'Core.HiddenElements' => array('style' => true),
-                        'Cache.SerializerPath' => null
-                    )
-                )
+                        'Cache.SerializerPath' => null,
+                    ),
+                ),
             ),
             'should load custom configuration' => array(
                 array(
                     array(
                         'simple' => array(
                             'customConfig' => true,
-                            'AutoFormat.RemoveEmpty.RemoveNbsp' => true
+                            'AutoFormat.RemoveEmpty.RemoveNbsp' => true,
                         ),
-                    )
+                    ),
                 ),
                 array(
                     'simple' => array(
                         'customConfig' => true,
-                        'AutoFormat.RemoveEmpty.RemoveNbsp' => true
-                    )
-                )
-            )
+                        'AutoFormat.RemoveEmpty.RemoveNbsp' => true,
+                    ),
+                ),
+            ),
         );
     }
 }

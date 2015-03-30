@@ -24,7 +24,7 @@ class TexyManager
      */
     public function getTexy($name = 'default')
     {
-        if (array_key_exists($name, $this->definitions)){
+        if (array_key_exists($name, $this->definitions)) {
             if (!array_key_exists($name, $this->initializedTexy)) {
                 $this->initializedTexy[$name] = $this->configurator->configure($this->definitions[$name]);
             }

@@ -18,13 +18,13 @@ class TexyTwigFilter extends Twig_Extension
     {
         return array(
             $this->filter('texy_process', 'singleLineText'),
-            $this->filter('texy_process_line', 'multiLineText')
+            $this->filter('texy_process_line', 'multiLineText'),
         );
     }
 
     private function filter($name, $method)
     {
-        return new Twig_SimpleFilter($name, array($this->processor, $method),  array('is_safe' => array('html')));
+        return new Twig_SimpleFilter($name, array($this->processor, $method), array('is_safe' => array('html')));
     }
 
     public function getName()

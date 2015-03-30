@@ -2,7 +2,7 @@
 
 namespace Edge\TexyBundle\Texy;
 
-use \Texy;
+use Texy;
 
 class TexyConfigurator
 {
@@ -10,7 +10,7 @@ class TexyConfigurator
     private $texyClassName;
     private $customAttributes = array();
 
-    function __construct($texyClassName, array $customAttributes)
+    public function __construct($texyClassName, array $customAttributes)
     {
         $this->texyClassName = $texyClassName;
         foreach ($customAttributes as $name) {
@@ -20,18 +20,19 @@ class TexyConfigurator
 
     /**
      * Function, that receives data from user config and returns fully configured Texy
-     * @param array $parameters
+     * @param  array $parameters
      * @return Texy
      */
     public function configure(array $parameters)
     {
         if (array_key_exists('class', $parameters)) {
-            $texy = new $parameters['class'];
+            $texy = new $parameters['class']();
             if (!$texy instanceof Texy) {
-                throw new \InvalidArgumentException('Specified class ' . $parameters['class'] . ' is not instance of Texy nor it\'s descendant.');
+                $error = "Specified class {$parameters['class']} is not instance of Texy nor it's descendant.";
+                throw new \InvalidArgumentException($error);
             }
         } else {
-            $texy = new $this->texyClassName;
+            $texy = new $this->texyClassName();
         }
 
         if (array_key_exists('outputMode', $parameters)) {
@@ -41,9 +42,9 @@ class TexyConfigurator
         foreach ($parameters as $type => $options) {
             if ($type === 'allowed') {
                 $this->setAllowed($texy, $options);
-            } else if ($type === 'modules') {
+            } elseif ($type === 'modules') {
                 $this->setModules($texy, $options);
-            } else if ($type === 'variables') {
+            } elseif ($type === 'variables') {
                 $this->setVariables($texy, $options);
             }
         }
@@ -68,7 +69,6 @@ class TexyConfigurator
         }
     }
 
-
     /**
      * Sets all arguments that needs to be called like $texy->someModule->option = value;
      *
@@ -87,7 +87,6 @@ class TexyConfigurator
             }
         }
     }
-
 
     /**
      * sets all calls that needs to be called like $texy->something = somethingElse
@@ -113,7 +112,6 @@ class TexyConfigurator
                 $transformed_argument[$key] = $this->translateValue($value);
             }
             $argument = $transformed_argument;
-
         } else {
             $argument = $this->translateValue($argument);
         }
@@ -125,10 +123,9 @@ class TexyConfigurator
     {
         if ($value === '*') {
             return Texy::ALL;
-        } else if ($value === '-') {
+        } elseif ($value === '-') {
             return Texy::NONE;
         }
-
         return $value;
     }
 
