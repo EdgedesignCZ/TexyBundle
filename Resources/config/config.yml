@@ -5,6 +5,8 @@ parameters:
     edge_texy.class.processor: "Edge\\TexyBundle\\Texy\\TexyProcessor"
     edge_texy.class.twig_extension: "Edge\\TexyBundle\\Texy\\TexyTwigFilter"
 
+    edge_texy.custom_attributes:
+        500: download
     edge_texy.filters:
         demo:
             allowed:
@@ -56,6 +58,7 @@ services:
         arguments:
             - '@edge_texy.configurator'
             - '%edge_texy.filters%'
+            - '%edge_texy.custom_attributes%'
 
     edge_texy.processor:
         class: '%edge_texy.class.processor%'

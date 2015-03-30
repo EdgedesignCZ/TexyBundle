@@ -85,5 +85,6 @@ class EdgeTexyExtension extends Extension
     public function loadManager(array $config, ContainerBuilder $container)
     {
         $container->setParameter('edge_texy.filters', $config['filters']);
+        $container->setParameter('edge_texy.custom_attributes', $config['custom_attributes']);
     }
 }

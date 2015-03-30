@@ -4,7 +4,7 @@ namespace Edge\TexyBundle\DependencyInjection;
 
 use Mockery as m;
 
-class EdgeTexyBundleExtensionTest extends \PHPUnit_Framework_TestCase
+class EdgeTexyExtensionTest extends \PHPUnit_Framework_TestCase
 {
     private $extension;
 
@@ -17,9 +17,11 @@ class EdgeTexyBundleExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $container = m::mock('Symfony\Component\DependencyInjection\ContainerBuilder');
         $container->shouldReceive('setParameter')->once()->with('edge_texy.filters', 'irrelevant filter');
+        $container->shouldReceive('setParameter')->once()->with('edge_texy.custom_attributes', 'irrelevant attributes');
 
         $config = array(
-            'filters' => 'irrelevant filter'
+            'filters' => 'irrelevant filter',
+            'custom_attributes' => 'irrelevant attributes'
         );
         $this->extension->loadManager($config, $container);
         m::close();
