@@ -4,43 +4,30 @@ namespace Edge\TexyBundle\Manager;
 
 use Edge\TexyBundle\Configurator\IConfigurator;
 use InvalidArgumentException;
-use Texy;
 
-class TexyManager implements IManager{
-
-    private $instances;
-
+class TexyManager implements IManager
+{
+    private $initializedTexy;
     private $configurator;
-
     private $definitions;
 
     public function __construct(IConfigurator $configurator, array $definitions)
     {
         $this->configurator = $configurator;
         $this->definitions = $definitions;
-        $this->instances = array();
+        $this->initializedTexy = array();
     }
 
-
-    /**
-     * Retrieve Texy instance named $name
-     * throws InstanceNotFoundException when there is no such instance
-     *
-     * @param string $name
-     * @return Texy
-     * @throws \Edge\TexyBundle\Exceptions\InstanceNotFoundException
-     */
     public function getTexy($name = 'default')
     {
-        if(array_key_exists($name, $this->instances)){
-
-            return $this->instances[$name];
-        } else if (array_key_exists($name, $this->definitions)){
-            $this->instances[$name] = $this->configurator->configure($this->definitions[$name]);
-
-            return $this->instances[$name];
+        if (array_key_exists($name, $this->definitions)){
+            if (!array_key_exists($name, $this->initializedTexy)) {
+                $this->initializedTexy[$name] = $this->configurator->configure($this->definitions[$name]);
+            }
+            return $this->initializedTexy[$name];
+        } else {
+            $this->unknownFilter($name);
         }
-        $this->unknownFilter($name);
     }
 
     private function unknownFilter($name)
